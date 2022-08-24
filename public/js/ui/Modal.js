@@ -13,10 +13,11 @@ class Modal {
    * */
   constructor(element){
       this.element = element;
-      if(element === '') {
-        console.error('Передан пустой элемент');
+      //this.element = document.querySelectorAll('[data-dismiss]');
+      if(!element) {
+        throw new Error ('Передан пустой элемент');
       };
-     Modal.registerEvents(element);
+      this.registerEvents();
   }
 
   /**
@@ -25,9 +26,9 @@ class Modal {
    * (с помощью метода Modal.onClose)
    * */
   registerEvents() {
-    const closeButtons = Array.from(element.querySelectorAll([data-dismiss ="modal"]));
+    const closeButtons = Array.from(document.querySelectorAll('[data-dismiss ="modal"]'));
       closeButtons.forEach((item) => {
-          item.addEventListener("click", Modal.onclose(e));
+          item.addEventListener("click", this.onClose());
         });
   }
 
@@ -37,7 +38,7 @@ class Modal {
    * */
   onClose(e) {
         e.forEach((item) => {
-          item.addEventListener("click", Modal.close());
+          item.addEventListener("click", this.close());
         });
   }
   /**

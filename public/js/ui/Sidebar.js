@@ -24,7 +24,6 @@ class Sidebar {
         event.preventDefault();
         sidebarBody.classList.toggle('sidebar-open');
         sidebarBody.classList.toggle('sidebar-collapse');
-        console.log(sidebarBody.classList)
       })
 
       
@@ -38,6 +37,12 @@ class Sidebar {
    * выходу устанавливает App.setState( 'init' )
    * */
   static initAuthLinks() {
-
+    const registerButton = document.querySelector('.menu-item_register');
+    registerButton.onclick = function() {
+      //const modalRegister = document.getElementById('#modal-register');
+      //const modalRegister = App.getModal('#modalRegister');
+      //this.open(modalRegister);
+      this.open(App.getModal('modalRegister'));
+    }
   }
 }

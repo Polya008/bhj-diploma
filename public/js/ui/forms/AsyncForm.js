@@ -13,7 +13,11 @@ class AsyncForm {
    * через registerEvents()
    * */
   constructor(element) {
-
+      this.element =  element;
+      if(!element){
+        throw new Error ('Передан пустой элемент');
+      }
+      this.registerEvents();
   }
 
   /**
@@ -21,7 +25,17 @@ class AsyncForm {
    * вызывает метод submit()
    * */
   registerEvents() {
-
+   // this.addEventListener('submit', (event) => {
+      //event.preventDefault();
+      const xhr = new XMLHttpRequest();
+      xhr.addEventListener('readystatechange', () =>{
+        if(xhr.readystate === xhr.DONE){
+          this.submit();
+        }
+    //  });
+      //xhr.open('GET', ); не знаю надо ли это прописывать вообще, а если надо -верное ли место я выбрала?и где взять URL?
+      //xhr.send();
+    })
   }
 
   /**
@@ -31,8 +45,11 @@ class AsyncForm {
    *  'название поля формы 2': 'значение поля формы 2'
    * }
    * */
-  getData() {
-
+  getData(){
+    const formData = new FormData(this);
+    const key = formData.querySelector('[name]').value;
+    const keyValue = formData.querySelector('[value]').value;
+    return getDataObject = { key : keyValue};
   }
 
   onSubmit(options){
@@ -44,6 +61,6 @@ class AsyncForm {
    * данные, полученные из метода getData()
    * */
   submit() {
-
+    getDataObject();
   }
 }
