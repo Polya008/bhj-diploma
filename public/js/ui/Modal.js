@@ -13,11 +13,12 @@ class Modal {
    * */
   constructor(element){
       
-      //this.element = document.querySelectorAll('[data-dismiss]');
+      //let btnPrimary  = Array.from(document.querySelectorAll('.btn-primary'));
+      this.element = element;
       if(!element) {
         throw new Error ('Передан пустой элемент');
       };
-      this.element = element;
+      
       this.registerEvents();
   }
 

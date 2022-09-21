@@ -32,17 +32,37 @@ class Sidebar {
   /**
    * При нажатии на кнопку входа, показывает окно входа
    * (через найденное в App.getModal)
-   * При нажатии на кнопку регастрации показывает окно регистрации
+   * При нажатии на кнопку регистрации показывает окно регистрации
    * При нажатии на кнопку выхода вызывает User.logout и по успешному
    * выходу устанавливает App.setState( 'init' )
    * */
   static initAuthLinks() {
-    const registerButton = document.querySelector('.menu-item_register');
-    registerButton.onclick = function() {
-      //const modalRegister = document.getElementById('#modal-register');
-      //const modalRegister = App.getModal('#modalRegister');
-      //this.open(modalRegister);
-      this.open(App.getModal('modalRegister'));
+   const registerButton = document.querySelector('.menu-item_register');
+  // const regLink = registerButton.querySelector('span');
+ // console.log(regLink)
+
+   const loginButton = document.querySelector('.menu-item_login');
+  // const logLink = loginButton.querySelector('span');
+  // console.log(logLink)
+
+   function searchLink(e) {
+    
+    const myLink = e.querySelector('span');
+
+    myLink.addEventListener('click', (event) => {
+      if(event.target === registerButton){
+        const appElement = App.getModal('register');
+        return appElement;
+      }else if(event.target === loginButton){
+        const appElement =  App.getModal('login');
+        return appElement;
+      }
+
+      console.log('worked')
+      Modal.open(appElement);
+
+    });
+     }
     }
   }
-}
+
