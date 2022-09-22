@@ -24,20 +24,17 @@ class AsyncForm {
    * Необходимо запретить отправку формы и в момент отправки
    * вызывает метод submit()
    * */
-  registerEvents() {
-   // this.addEventListener('submit', (event) => {
-      //event.preventDefault();
-      const xhr = new XMLHttpRequest();
-      xhr.addEventListener('readystatechange', () =>{
-        if(xhr.readystate === xhr.DONE){
-          this.submit();
+registerEvents() {
+  const myform = document.querySelectorAll('.form');
+  myform.forEach(item => 
+    item.addEventListener('submit', (event) => {
+      event.preventDefault();
+      let formData = new FormData(item);
+      if(this.status === 200 && this.readyState == 4){
+        this.submit();
         }
-    //  });
-      //xhr.open('GET', ); не знаю надо ли это прописывать вообще, а если надо -верное ли место я выбрала?и где взять URL?
-      //xhr.send();
-    })
-  }
-
+       })
+       )}; 
   /**
    * Преобразует данные формы в объект вида
    * {
@@ -46,9 +43,16 @@ class AsyncForm {
    * }
    * */
   getData(){
-    const formData = new FormData(this);
-    const key = formData.querySelector('[name]').value;
-    const keyValue = formData.querySelector('[value]').value;
+    //const formData = new FormData(this);
+    //const key = formData.querySelector('[name]').value;
+    //const keyValue = formData.querySelector('[value]').value;
+
+
+     const getDataObject = {};
+
+    for (let {key, keyValue} of this.formData.entries()) {
+      getDataObject.push([key, keyValue]);
+    } 
     return getDataObject = { key : keyValue};
   }
 
@@ -61,6 +65,6 @@ class AsyncForm {
    * данные, полученные из метода getData()
    * */
   submit() {
-    getDataObject();
+    this.onSubmit(getDataObject);
   }
 }
