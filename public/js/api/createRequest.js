@@ -6,27 +6,25 @@ const createRequest = (options = {}) => {
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
-    if(createRequest.method === 'GET'){
-        xhr.open( 'GET', `${createRequest.url}?mail=${createRequest.data.mail}&password=${createRequest.data.password}`);
-        //xhr.send();
-
+    if(options.method === 'GET'){
+        for (let key in options){
+        xhr.open( 'GET', `${options.url}?mail=${options[key].mail}&password=${options[key].password}`);
+        }
     }else {
-        formData = new FormData();
-        formData.append( 'mail', `createRequest.data.mail`);
-        formData.append( 'password', `createRequest.data.password`);
 
-        xhr.open('POST', 'http://localhost:8000' );
+        let formData = new FormData();
+        for (let key in options){
+            formData.append( key, options.data[key]);
+            }
+        xhr.open('POST', 'http://localhost:8000/' );
         xhr.send(formData);
     }
 
-   xhr.addEventListener('load', (err, response) => {
-    if(this.readyState == 4 && this.status == 200){
-        console.log(xhr.response); 
-        } else{
-            console.log('Ошибка!!!', xhr.err)
-  }
-    })
-    }
-
-
-
+   xhr.addEventListener('load', () => {
+    
+            let err = null;
+            let response = xhr.response;
+            options.callback(err, response);
+        }
+      );
+}

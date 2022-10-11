@@ -25,16 +25,14 @@ class AsyncForm {
    * вызывает метод submit()
    * */
 registerEvents() {
-  const myform = document.querySelectorAll('.form');
-  myform.forEach(item => 
-    item.addEventListener('submit', (event) => {
+  //const myform = this.querySelector('.form');
+ // const myform = document.querySelectorAll('.form');
+  //this.forEach((item) => 
+    this.element.addEventListener('submit', (event) => {
       event.preventDefault();
-      let formData = new FormData(item);
-      if(this.status === 200 && this.readyState == 4){
         this.submit();
-        }
        })
-       )}; 
+       }; 
   /**
    * Преобразует данные формы в объект вида
    * {
@@ -50,10 +48,10 @@ registerEvents() {
 
      const getDataObject = {};
 
-    for (let {key, keyValue} of this.formData.entries()) {
-      getDataObject.push([key, keyValue]);
+    for (let [key, keyValue] of this.formData.entries()) {
+      getDataObject['key'] = 'keyValue';
     } 
-    return getDataObject = { key : keyValue};
+    return getDataObject;
   }
 
   onSubmit(options){
