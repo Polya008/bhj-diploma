@@ -41,15 +41,10 @@ registerEvents() {
    * }
    * */
   getData(){
-    //const formData = new FormData(this);
-    //const key = formData.querySelector('[name]').value;
-    //const keyValue = formData.querySelector('[value]').value;
-
-
-     const getDataObject = {};
+    const getDataObject = {};
 
     for (let [key, keyValue] of this.formData.entries()) {
-      getDataObject['key'] = 'keyValue';
+      getDataObject[key] = keyValue;
     } 
     return getDataObject;
   }
@@ -63,6 +58,7 @@ registerEvents() {
    * данные, полученные из метода getData()
    * */
   submit() {
-    this.onSubmit(getDataObject);
+    let data = this.getData();
+    this.onSubmit({data});
   }
 }

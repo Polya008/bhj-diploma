@@ -39,30 +39,29 @@ class Sidebar {
   static initAuthLinks() {
     const registerButton = document.querySelector('.menu-item_register');
     const loginButton = document.querySelector('.menu-item_login');
+    const logoutButton = document.querySelector('.menu-item_logout');
+    const registerModal = App.getModal('register');
+    const loginModal = App.getModal('login');
 
-     function searchLink(e) {
+     
 
-    const myLink = e.querySelector('span');
+    registerButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      registerModal.open();
+    })
 
-    myLink.addEventListener('click', (event) => {
-      if(event.target === registerButton){
-        const appElement = App.getModal('register');
-        return appElement;
-      }else if(event.target === loginButton){
-        const appElement =  App.getModal('login');
-        return appElement;
-      }
-
-      console.log('worked')
-      Modal.open(appElement);
-
+   loginButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      loginModal.open();
     });
-     }
-   // registerButton.onclick = function() {
-     // //const modalRegister = document.getElementById('#modal-register');
-      ////const modalRegister = App.getModal('#modalRegister');
-      //this.open(modalRegister);
-      //this.open(App.getModal('modalRegister'));
-    //}
+
+    logoutButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      User.logout({}, (err, response) => {
+        if (response && response.success) {
+          App.setState( 'init' );
+        }
+      });
+    });
   }
 }

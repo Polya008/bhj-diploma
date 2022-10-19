@@ -26,7 +26,7 @@ class UserWidget {
    * авторизованного пользователя
    * */
   update(){
-    let user = User.current();
+    let user = JSON.parse(User.current());
     if(user) {
       this.element.querySelector('.user-name').textContent = user.name;
       }
