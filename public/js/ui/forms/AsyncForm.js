@@ -42,8 +42,9 @@ registerEvents() {
    * */
   getData(){
     const getDataObject = {};
+    const formData = new FormData(this.element);
 
-    for (let [key, keyValue] of this.formData.entries()) {
+    for (let [key, keyValue] of formData.entries()) {
       getDataObject[key] = keyValue;
     } 
     return getDataObject;

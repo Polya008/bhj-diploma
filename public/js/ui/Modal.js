@@ -40,7 +40,7 @@ class Modal {
    * Закрывает текущее окно (Modal.close())
    * */
   onClose(e) {
-      e.preventDefault();
+    //  e.preventDefault();
       this.close();
   }
   /**
@@ -48,13 +48,13 @@ class Modal {
    * со значением «block»
    * */
   open() {
-    this.style.display = "block";
+    this.element.style.display = "block";
   }
   /**
    * Закрывает окно: удаляет CSS-свойство display
    * */
   close(){
    //this.removeAttribute("style");
-   this.style.display = "none";
+   this.element.style.display = "none";
   }
 }
