@@ -14,12 +14,7 @@ class AccountsWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
-     if(!element) {
-        throw new Error ('Передан пустой элемент');
-      };
-    this.element = element;
-    this.registerEvents();
-    this.update();    
+
   }
 
   /**
@@ -30,20 +25,7 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-      const createAccount = this.element.querySelector('.create-account');
-      createAccount.addEventListener('click', (e) => {
-        e.preventDefault();
-        let newAccount  = App.getModal('createAccount');
-        newAccount.open();
-      });
 
-
-      this.element.addEventListener('click', (e) => {
-      let item = e.target;
-      if (item.closest('.account')) {
-        this.onSelectAccount(item.closest('.account'));
-      }
-    });
   }
 
   /**
@@ -57,18 +39,8 @@ class AccountsWidget {
    * метода renderItem()
    * */
   update() {
-    let user = JSON.parse(User.current());
 
-     if (user) {
-      Account.list(user, (err, response) => {
-        if (response.success) {
-          this.clear();
-          response.data.forEach((item) => this.renderItem(item));
-        }
-      });
-    }
   }
-  
 
   /**
    * Очищает список ранее отображённых счетов.
@@ -76,7 +48,7 @@ class AccountsWidget {
    * в боковой колонке
    * */
   clear() {
-      this.element.querySelectorAll('.account').forEach(item => item.remove());
+
   }
 
   /**

@@ -25,13 +25,9 @@ const createRequest = (options = {}) => {
        // xhr.send(formData);
     }
 
-
-try{
    xhr.open(options.method, url);
    xhr.send(options.method !== 'GET' ? formData : null);
-} catch (e){
-    options.callback(e);
-}
+
 
 
    xhr.addEventListener('load', () => {
