@@ -14,7 +14,7 @@ class RegisterForm extends AsyncForm {
       if (response && response.succes) {
         this.element.reset();
         App.setState( 'register' );
-        const registerWindow = App.getState( 'register' );
+        const registerWindow = App.getModal( 'register' );
         registerWindow.close();
         }
     })

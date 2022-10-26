@@ -61,6 +61,6 @@ registerEvents() {
    * */
   submit() {
     let data = this.getData();
-    this.onSubmit({data});
+    this.onSubmit(data);
   }
 }
