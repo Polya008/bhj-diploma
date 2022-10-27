@@ -7,10 +7,11 @@ const createRequest = (options = {}) => {
     xhr.responseType = 'json';
 
 
-    let url = options.url;
+  
     if(options.method === 'GET'){
+        let url = options.url;
         if(options.data){
-            for (let key in options){
+            for (let key in options.data){
                 url += key +'='+ options[key]+'&';
             }
             url.slice(0, -1);
@@ -18,14 +19,14 @@ const createRequest = (options = {}) => {
     }else {
 
         let formData = new FormData();
-        for (let key in options){
-           url +=  formData.append(key, options.data[key]);
+        for (let key in options.data){
+           return url += formData.append(key, options.data[key]);
             }
        // xhr.open('POST', 'http://localhost:8000/' );
        // xhr.send(formData);
     }
 
-   xhr.open(options.method, url);
+   xhr.open(options.method,options.url);
    xhr.send(options.method !== 'GET' ? formData : null);
 
 
