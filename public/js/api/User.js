@@ -33,13 +33,11 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch(callback) {
-    return createRequest({
+     createRequest({
       url: this.URL + "/current", 
-      data,
       method: "GET", 
-      responseType: "json",
       callback: (err, response) => {
-        if (response.success) {
+        if (response && response.user) {
           this.setCurrent(response.user);
         } else {
           this.unsetCurrent();
@@ -59,7 +57,6 @@ class User {
     createRequest({
       url: this.URL + '/login',
       method: 'POST',
-      responseType: 'json',
       data,
       callback: (err, response) => {
         if (response && response.user) {
@@ -80,7 +77,6 @@ class User {
     createRequest({
       url: this.URL + '/register',
       method: 'POST',
-      responseType: 'json',
       data,
       callback: (err, response) => {
         if (response && response.user) {
@@ -95,16 +91,16 @@ class User {
    * Производит выход из приложения. После успешного
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
-  static logout(err, response) {
+  static logout(callback) {
    createRequest({
       url: this.URL + '/logout',
       method: 'POST',
-      responseType: 'json',
       data,
       callback: (err, response) => {
         if (response && response.user) {
           this.unsetCurrent();
         }
+        callback(err, response);
       }
     });
   }

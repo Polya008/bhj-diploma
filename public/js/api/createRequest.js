@@ -5,11 +5,11 @@
 const createRequest = (options = {}) => {
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-
-
+    let formData = new FormData();
+    let url = options.url;
   
     if(options.method === 'GET'){
-        let url = options.url;
+        
         if(options.data){
             for (let key in options.data){
                 url += key +'='+ options[key]+'&';
@@ -18,17 +18,22 @@ const createRequest = (options = {}) => {
         }
     }else {
 
-        let formData = new FormData();
+        
         for (let key in options.data){
-           return url += formData.append(key, options.data[key]);
-            }
+           formData.append(key, options.data[key]);
+        }
        // xhr.open('POST', 'http://localhost:8000/' );
        // xhr.send(formData);
     }
 
-   xhr.open(options.method,options.url);
-   xhr.send(options.method !== 'GET' ? formData : null);
 
+try{
+   xhr.open(options.method,options.url);
+   //xhr.send(options.method !== 'GET' ? formData : null);
+   xhr.send(formData)
+} catch(e){
+    options.callback(e);
+}
 
 
    xhr.addEventListener('load', () => {

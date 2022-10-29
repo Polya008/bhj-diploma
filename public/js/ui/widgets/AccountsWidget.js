@@ -14,8 +14,15 @@ class AccountsWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
-
+     if(element) {
+        this.element = element;
+        this.registerEvents();
+        this.update()
+     } else {
+       throw new Error(error);
+     }
   }
+  
 
   /**
    * При нажатии на .create-account открывает окно
@@ -25,7 +32,18 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-
+     const createAccount = document.querySelector(".create-account");
+      createAccount.onclick = function() {
+        App.getModal('createAccount').open()
+      }
+      const accountsPanel = document.getElementsByClassName("accounts-panel")[0];
+      accountsPanel.addEventListener("click", (e) => {
+        e.preventDefault();
+        const account = e.target.closest('.account');
+        if(account) {
+          this.onSelectAccount(account);
+        }
+      })
   }
 
   /**
@@ -39,7 +57,14 @@ class AccountsWidget {
    * метода renderItem()
    * */
   update() {
-
+    if(User.current()) {
+      Account.list(User.current(), (err, response) => {
+        if(response.success){
+          this.clear();
+          response.data.forEach(account => this.renderItem(account))
+    }
+  })
+}
   }
 
   /**
@@ -48,7 +73,7 @@ class AccountsWidget {
    * в боковой колонке
    * */
   clear() {
-
+     Array.from(this.element.querySelectorAll('.account')).forEach(account => account.remove());
   }
 
   /**
@@ -59,7 +84,12 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount( element ) {
-
+    const accountActive = document.querySelector(".account.active");
+    if(accountActive) {
+      accountActive.classList.remove("active");
+    }
+    element.classList.add("active");
+    App.showPage('transactions', {account_id: element.dataset.id});
   }
 
   /**
@@ -68,7 +98,13 @@ class AccountsWidget {
    * item - объект с данными о счёте
    * */
   getAccountHTML(item){
-
+    return `
+    <li class="active account" data-id="${item.id}">
+     <a href="#">
+      <span>${item.name}</span> /
+      <span>${item.sum}</span>
+     </a>
+    </li>`
   }
 
   /**
@@ -78,6 +114,6 @@ class AccountsWidget {
    * и добавляет его внутрь элемента виджета
    * */
   renderItem(data){
-
+     this.element.insertAdjacentHTML("beforeEnd", this.getAccountHTML(data));
   }
 }
