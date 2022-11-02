@@ -12,8 +12,6 @@ class Modal {
    * необходимо выкинуть ошибку.
    * */
   constructor(element){
-      
-      //this.element = document.querySelectorAll('[data-dismiss]');
       if(!element) {
         throw new Error ('Передан пустой элемент');
       };
@@ -42,7 +40,7 @@ class Modal {
   onClose(e) {
       e.preventDefault();
       this.close();
-  }
+    }
   /**
    * Открывает окно: устанавливает CSS-свойство display
    * со значением «block»
@@ -54,7 +52,6 @@ class Modal {
    * Закрывает окно: удаляет CSS-свойство display
    * */
   close(){
-   //this.removeAttribute("style");
    this.element.style.display = "none";
   }
 }

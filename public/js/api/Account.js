@@ -5,7 +5,7 @@
  * */
 class Account extends Entity {
 
-  static url = '/account';
+  static URL = '/account';
   /**
    * Получает информацию о счёте
    * */

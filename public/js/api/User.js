@@ -8,6 +8,8 @@ class User {
    * Устанавливает текущего пользователя в
    * локальном хранилище.
    * */
+  static URL = '/user';
+
   static setCurrent(user) {
     localStorage.setItem('user', JSON.stringify(user));
   }
@@ -95,7 +97,6 @@ class User {
    createRequest({
       url: this.URL + '/logout',
       method: 'POST',
-      data,
       callback: (err, response) => {
         if (response && response.user) {
           this.unsetCurrent();

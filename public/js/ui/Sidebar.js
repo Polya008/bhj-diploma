@@ -24,9 +24,7 @@ class Sidebar {
         event.preventDefault();
         sidebarBody.classList.toggle('sidebar-open');
         sidebarBody.classList.toggle('sidebar-collapse');
-      })
-
-      
+      })    
   }
 
   /**

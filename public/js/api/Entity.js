@@ -11,7 +11,7 @@ class Entity {
    * Это могут быть счета или доходы/расходы
    * (в зависимости от того, что наследуется от Entity)
    * */
-  static list({data}, callback = (f) => f){
+  static list(data, callback = (f) => f){
       createRequest({
         data,
         method: 'GET', 
@@ -40,7 +40,7 @@ class Entity {
    * Удаляет информацию о счёте или доходе/расходе
    * (в зависимости от того, что наследуется от Entity)
    * */
-  static remove({data}, callback) {
+  static remove(data, callback) {
     //const modifiedData = Object.assign({ [id]: data }, { method: "DELETE" });
       createRequest({
         data: data,

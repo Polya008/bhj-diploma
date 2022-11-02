@@ -12,12 +12,10 @@ class TransactionsWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
-
-    if(element) {
-      this.element = element;
-    } else {
+    if(!element) {
       throw new Error("Элемент не существует!")
     }
+    this.element = element;
     this.registerEvents()
   }
   

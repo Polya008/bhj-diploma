@@ -17,17 +17,17 @@ class CreateTransactionForm extends AsyncForm {
    * Обновляет в форме всплывающего окна выпадающий список
    * */
   renderAccountsList() {
-   Account.list(User.current(), (error, response) => {
-    if (response.success) {
-      const accountSelect = document.querySelector(`#${this.element.id} .accounts-select`);
-      accountSelect.innerHTML = '';
-      response.data.forEach((account) => {
-        accountSelect.insertAdjacentHTML('beforeend', `<option value="${account.id}">${account.name}</option>`);
-      });
-    }
-     })
+    const select = this.element.querySelector('.accounts-select');
+    Account.list(User.current(), (err, response) => {
+      if (response.data) {
+        const account = response.data.reduce((acc, el) => {
+          acc += `<option value="${el.id}">${el.name}</option>`;
+          return acc;
+        }, '');
+        select.innerHTML = account;
+      }
+    });
   }
-
   /**
    * Создаёт новую транзакцию (доход или расход)
    * с помощью Transaction.create. По успешному результату
