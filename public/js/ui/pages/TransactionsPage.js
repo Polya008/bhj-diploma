@@ -96,24 +96,25 @@ class TransactionsPage {
    * в TransactionsPage.renderTransactions()
    * */
   render(options){
-    if (!options) {
-      return;
-    };
-    
-    this.lastOptions = options;
-    
-    Account.get(options['account_id'], (err, response) => {
-      if (response && response.success) {
-        this.renderTitle(response.data.name);
-      }
-    });
+    if (options) {
+      this.lastOptions = options;
 
-    Transaction.list(options, (err, response) => {
-      if (response, response.success) {
-        this.renderTransactions(response.data);
-      }
-    });
-  };
+      Account.get(User.current(), options.account_id, (err, response) => {
+        if (response.success) {
+          const findTargetAccount = response.data.filter(account => account.id === options.account_id);
+          if (findTargetAccount) {
+            this.renderTitle(findTargetAccount[0].name);
+          }
+        }
+      });
+
+      Transaction.list(options, (err, response) => {
+        if (response.success) {
+          this.renderTransactions(response.data);
+        }
+      });
+    }
+  }
 
   /**
    * Очищает страницу. Вызывает

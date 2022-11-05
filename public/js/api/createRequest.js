@@ -37,10 +37,11 @@ try{
 
 
    xhr.addEventListener('load', () => {
-    
-            //let err = null;
-            //let response = xhr.response;
-            options.callback(null, xhr.response);
+       if (xhr.status === 200 && xhr.readyState === 4) {
+                options.callback(xhr.err, xhr.response);
+            } else {
+                options.callback(xhr.response,eroor, xhr.response);
+            }
         }
       );
 }

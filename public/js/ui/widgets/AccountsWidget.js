@@ -50,18 +50,17 @@ class AccountsWidget {
    * */
   update() {
     if (User.current()) {
-      const data = User.current(); 
-      Account.list(data, (err, response) => {
-        if (response && response.success) {
+      Account.list(User.current(), (err, response) => {
+        if (response.success) {
           this.clear();
 
-          for (let elem of response.data) {
-            this.renderItem(elem);
-          }
-        }
-      });
-    }
-  }
+          response.data.forEach(item => {
+            this.renderItem(item);
+          });
+      };
+    });
+   }
+ }
 
   /**
    * Очищает список ранее отображённых счетов.
