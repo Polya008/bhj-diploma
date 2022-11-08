@@ -11,24 +11,21 @@ const createRequest = (options = {}) => {
     if(options.method === 'GET'){
         
         if(options.data){
+            url += '?';
             for (let key in options.data){
-                url += key +'='+ options[key]+'&';
+                url +=  key +'='+ options.data[key]+'&';
             }
-            url.slice(0, -1);
+            url =  url.slice(0, -1);
         }
-    }else {
-
-        
+    }else {    
         for (let key in options.data){
            formData.append(key, options.data[key]);
         }
-       // xhr.open('POST', 'http://localhost:8000/' );
-       // xhr.send(formData);
     }
 
 
 try{
-   xhr.open(options.method,options.url);
+   xhr.open(options.method, url);
    //xhr.send(options.method !== 'GET' ? formData : null);
    xhr.send(formData)
 } catch(e){
